@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import React from "react";
+import { useState } from "react";
 import {
   Image,
   ImageBackground,
@@ -20,6 +20,7 @@ const relief = require("../assets/images/relief.jpg");
 const reminder = require("../assets/images/reminder.png");
 const sLogo = require("../assets/images/saferoute-logo.png");
 const Home = () => {
+  const [notificationCount, setNotificationCount] = useState(0);
   return (
     <SafeAreaView className="bg-white w-full h-full">
       <View style={{ overflow: "hidden", paddingBottom: 3 }}>
@@ -51,7 +52,16 @@ const Home = () => {
             className="mr-1"
             onPress={() => console.log("bell pressed")}
           >
-            <Ionicons name="notifications-outline" size={24} color="black" />
+            <View className="relative">
+              <Ionicons name="notifications-outline" size={24} color="black" />
+              {notificationCount > 0 && (
+                <View className="bg-red-600 w-4 h-4 rounded-full absolute -top-1 -right-1 items-center justify-center">
+                  <Text className="text-white text-xs font-bold">
+                    {notificationCount}
+                  </Text>
+                </View>
+              )}
+            </View>
           </TouchableOpacity>
         </View>
       </View>
@@ -177,8 +187,8 @@ const style = StyleSheet.create({
   },
   imageRemember: {
     width: 360,
-    height: 250,
-    alignSelf: "center",
+    height: 1000,
+    borderRadius: 15,
     marginBottom: 100,
   },
   image: {
